@@ -100,13 +100,13 @@ eyJzdWIiOiIxIiwiZW1haWwiOiJqb2huQGV4YW1wbGUuY29tIiwicm9sZXMiOiJVU0VSIiwiaWF0Ijox
 
 **Calcul expiration** : `iat + 3600 secondes = iat + 1 heure`
 
-#### 3 **Signature** (HMAC signé)
+#### 3 Signature (RS256 – RSA + SHA-256)
 
-```
-HMAC_SHA256(
-  base64(header) + "." + base64(payload),
-  privateKey
+RSA_SHA256_SIGN(
+base64(header) + "." + base64(payload),
+privateKey
 )
+
 ```
 
 ---
@@ -367,7 +367,7 @@ Token reçu
 2. Charger clé publique RSA
     ↓
 3. Recalculer signature
-   signature_calculée = HMAC_SHA256(header.payload, publicKey)
+   RSA_VERIFY(signature, header.payload, publicKey)
     ↓
 4. Comparer signatures
    if signature_reçue == signature_calculée
