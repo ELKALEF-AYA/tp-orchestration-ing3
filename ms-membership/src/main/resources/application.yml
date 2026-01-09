@@ -1,0 +1,121 @@
+﻿spring:
+  application:
+    name: users
+    version: 1.0.0
+
+  datasource:
+    url: jdbc:h2:mem:userdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+app:
+  jwt:
+    private-key-path: classpath:keys/private_key.pem
+    public-key-path: classpath:keys/public_key.pem
+    expiration: 3600000
+
+server:
+  port: ${APP_PORT:8081}
+  error:
+    include-message: always
+    include-binding-errors: always
+    include-stacktrace: on_param
+    include-exception: false
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus,env,loggers
+      base-path: /actuator
+
+  endpoint:
+    health:
+      show-details: always
+      show-components: always
+      probes:
+        enabled: true
+
+  health:
+    defaults:
+      enabled: true
+    diskspace:
+      enabled: true
+      threshold: 10MB
+    db:
+      enabled: true
+    ping:
+      enabled: true
+
+  metrics:
+    enable:
+      jvm: true
+      process: true
+      system: true
+      tomcat: true
+      logback: true
+      http: true
+    distribution:
+      percentiles-histogram:
+        http.server.requests: true
+    tags:
+      application: ${spring.application.name}
+      environment: dev
+
+  prometheus:
+    metrics:
+      export:
+        enabled: true
+
+  info:
+    env:
+      enabled: true
+    java:
+      enabled: true
+    os:
+      enabled: true
+    git:
+      enabled: true
+      mode: full
+
+info:
+  app:
+    name: ${spring.application.name}
+    description: Microservice de gestion des utilisateurs et authentification
+    version: ${spring.application.version}
+    encoding: @project.build.sourceEncoding@
+    java:
+      version: @java.version@
+  contact:
+    email: support@esipen.com
+    team: Architecture Team
+
+logging:
+  level:
+    root: INFO
+    com.membership: DEBUG
+    org.springframework.web: DEBUG
+    org.springframework.security: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %logger{36} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"

@@ -1,0 +1,118 @@
+############################
+# OS
+############################
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.Spotlight-V100
+.Trashes
+
+############################
+# IDE / Editors
+############################
+.idea/
+*.iml
+.vscode/
+*.swp
+*.swo
+
+############################
+# Logs
+############################
+*.log
+logs/
+**/logs/
+
+############################
+# Java / Maven / Gradle
+############################
+**/target/
+**/build/
+**/.gradle/
+**/.classpath
+**/.project
+**/.settings/
+**/.factorypath
+
+# Maven wrapper logs (optional)
+.mvn/wrapper/maven-wrapper.jar
+
+############################
+# Spring Boot / runtime
+############################
+**/spring.log
+**/hs_err_pid*
+**/replay_pid*
+
+############################
+# Node / React / Vite
+############################
+**/node_modules/
+**/.pnp/
+**/.pnp.js
+**/npm-debug.log*
+**/yarn-debug.log*
+**/yarn-error.log*
+**/pnpm-debug.log*
+**/.npmrc
+**/.yarnrc*
+**/.pnpm-store/
+
+# Vite
+**/.vite/
+**/dist/
+**/build/
+**/.turbo/
+
+############################
+# Env files / secrets
+############################
+.env
+.env.*
+!.env.example
+**/*.pem
+**/*.key
+**/*.crt
+**/*.p12
+**/*.jks
+
+############################
+# Docker
+############################
+**/.docker/
+docker-compose.override.yml
+
+############################
+# Databases / dumps
+############################
+*.sql
+*.dump
+*.backup
+*.bak
+*.sqlite
+*.db
+
+############################
+# Test reports / coverage
+############################
+**/coverage/
+**/.nyc_output/
+**/test-results/
+**/surefire-reports/
+**/failsafe-reports/
+**/jacoco/
+**/jacoco.exec
+
+############################
+# Frontend build artifacts (if any)
+############################
+**/*.map
+
+############################
+# Misc
+############################
+*.tmp
+*.temp
+*.cache

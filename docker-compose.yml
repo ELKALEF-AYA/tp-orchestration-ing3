@@ -1,0 +1,85 @@
+version: "3.9"
+
+services:
+
+  # =======================
+  # PROMETHEUS
+  # =======================
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+    networks:
+      - app-network
+
+  # =======================
+  # GRAFANA
+  # =======================
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    depends_on:
+      - prometheus
+    networks:
+      - app-network
+
+  # =======================
+  # MEMBERSHIP SERVICE
+  # =======================
+  membership-service:
+    build:
+      context: ./ms-membership
+      dockerfile: Dockerfile
+    container_name: membership-service
+    ports:
+      - "8081:8081"
+    networks:
+      - app-network
+
+  # =======================
+  # PRODUCT SERVICE
+  # =======================
+  product-service:
+    build:
+      context: ./service-product
+      dockerfile: Dockerfile
+    container_name: product-service
+    ports:
+      - "8082:8082"
+    depends_on:
+      - membership-service
+    networks:
+      - app-network
+
+  # =======================
+  # ORDER SERVICE
+  # =======================
+  order-service:
+    build:
+      context: ./service-order
+      dockerfile: Dockerfile
+    container_name: order-service
+    ports:
+      - "8083:8083"
+    depends_on:
+      - membership-service
+      - product-service
+    networks:
+      - app-network
+
+# =======================
+# NETWORK
+# =======================
+networks:
+  app-network:
+    driver: bridge
