@@ -29,7 +29,7 @@
 			"response": []
 		},
 		{
-			"name": "Utilisateur inactif",
+			"name": "Commande avec user inexistant",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -65,7 +65,37 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"userId\": 2,\r\n  \"shippingAddress\": \"123 Main Street\",\r\n  \"items\": [\r\n    {\r\n      \"productId\": 2,\r\n      \"quantity\": 10\r\n    }\r\n  ]\r\n}",
+					"raw": "{\r\n  \"userId\": 1,\r\n  \"shippingAddress\": \"123 Main Street, Paris\",\r\n  \"items\": [\r\n    {\r\n      \"productId\": 2,\r\n      \"quantity\": 10\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8083/api/v1/orders",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"api",
+						"v1",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Commande avec produit en rupture",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"userId\": 1,\n  \"shippingAddress\": \"123 Main Street, Paris\",\n  \"items\": [\n    {\n      \"productId\": 2,\n      \"quantity\": 10\n    }\n  ]\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -704,6 +734,181 @@
 						"v1",
 						"users",
 						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Authentification",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"aya@test.com\",\r\n  \"password\": \"password123\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/v1/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "affichage de produit avec token",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "affichage de produit sans token",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Token MAL FORMÉ-Product",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer abc.fr",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8082/api/v1/products?a",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"api",
+						"v1",
+						"products"
+					],
+					"query": [
+						{
+							"key": "a",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Order -SANS TOKEN",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8083/api/v1/orders",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"api",
+						"v1",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Order- with token",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJheWFAdGVzdC5jb20iLCJyb2xlcyI6IlVTRVIiLCJpYXQiOjE3Njc5MTI0MTQsImV4cCI6MTc2NzkxNjAxNH0.WK2_v4JiVqaPzgja5jXReZs7oQSV6i_A3LJKv81ZixHpjOb-1mVcPXmMxEGvyMwhOxXUYl0FEefGhiMeJ-s84c8uuKzaALJb1ro_q01mW3jHwzqSrh2AsOr5PwHTlYVgcnW3XEROlM7A9Tp6gUlOVwgxYVLaCNp3q32s2JjOmAXywFXVgb3Tu1RXPxQqakPR23YWeo9u3FCT9WSfYAQiQDdD4kHUx8krQNHmORmlceF2hLv3ZpdSZ5cl8VwdDHdFpM7jsgIKmFHkoUChVbekfDOlL5fwmanNPrIcyUnwPbFcVS8eI4EkfuzGOtAiHPxZsOrhD46h_Ltfv05RpPzuSw",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8083/api/v1/orders",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"api",
+						"v1",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Order- token mal formé",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Aut",
+						"value": "Bearer eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJheWFAdGVzdC5jb20iLCJyb2xlcyI6IlVTRVIiLCJpYXQiOjE3Njc5MTI0MTQsImV4cCI6MTc2NzkxNjAxNH0.WK2_v4JiVqaPzgja5jXReZs7oQSV",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8083/api/v1/orders",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"api",
+						"v1",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "verfier l'etat de \"Actuator health\"",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/actuator/health",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"actuator",
+						"health"
 					]
 				}
 			},
