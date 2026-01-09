@@ -1,4 +1,8 @@
 # DOCKER.md - Guide de Deployment Docker
+> ⚠️ Note Docker Hub  
+> En raison des limitations du plan Docker Hub Personal (1 seul repository privé),
+> les images ont été publiées en public afin de permettre la correction du TP.
+> Le passage en privé est possible sur un plan payant.
 
 ## Table des matières
 
